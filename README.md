@@ -1,5 +1,7 @@
 # Rspec::WithParams
 
+[![Gem Version](https://badge.fury.io/rb/rspec-with_params.svg)](https://rubygems.org/gems/rspec-with_params)
+
 Simple parameterized testing with RSpec (a.k.a) table tests. Zero runtime
 dependencies (well, you bring RSpec to the party).
 
@@ -11,7 +13,7 @@ RSpec.describe "my complex business logic" do
     [:today,        :schedule,    :expected_date],
     ["2019-06-05",  "weekly",     "2019-06-13"],
     ["2019-06-05",  "bi-weekly",  "2019-06-20"],
-    ["2019-06-05",  "monthly",    "2019-06-20"],
+    ["2019-06-05",  "monthly",    "2019-07-13"],
   ) do
     it "determines the next appointment date" do
       result = NextAppointmentCalculator.new.process(today, schedule)
