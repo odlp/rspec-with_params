@@ -1,4 +1,4 @@
-# Rspec::WithParams
+# RSpec::WithParams
 
 [![Gem Version](https://badge.fury.io/rb/rspec-with_params.svg)](https://rubygems.org/gems/rspec-with_params) [![CircleCI](https://circleci.com/gh/odlp/rspec-with_params.svg?style=shield)](https://circleci.com/gh/odlp/rspec-with_params)
 
@@ -70,9 +70,18 @@ RSpec.configure do |config|
 end
 ```
 
+## Development
+
+```
+git clone git@github.com:odlp/rspec-with_params.git
+cd rspec-with_params
+bundle
+bundle exec rake
+```
+
 ## Alternatives
 
-- [`rspec-parameterized`][rspec-parameterized] - A more-complex, slicker DSL.
+- [`rspec-parameterized`][rspec-parameterized] - A slicker (more-complex?) DSL.
   Inspiration for this library.
 
 [rspec-parameterized]: https://github.com/tomykaira/rspec-parameterized
