@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/rspec-with_params.svg)](https://rubygems.org/gems/rspec-with_params)
 
-Simple parameterized testing with RSpec (a.k.a) table tests. Zero runtime
+Simple parameterized testing with RSpec (a.k.a table tests). Zero runtime
 dependencies (well, you bring RSpec to the party).
 
 ```ruby
