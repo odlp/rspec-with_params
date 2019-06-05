@@ -2,8 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/rspec-with_params.svg)](https://rubygems.org/gems/rspec-with_params) [![CircleCI](https://circleci.com/gh/odlp/rspec-with_params.svg?style=shield)](https://circleci.com/gh/odlp/rspec-with_params)
 
-Simple parameterized testing with RSpec (a.k.a table tests). Zero runtime
-dependencies (well, you bring RSpec to the party).
+Simple parameterized testing (a.k.a table tests) with RSpec.
 
 ```ruby
 RSpec.describe "my complex business logic" do
