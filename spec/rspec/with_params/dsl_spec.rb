@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rspec/with_params/dsl"
 
 RSpec.describe "the DSL" do
