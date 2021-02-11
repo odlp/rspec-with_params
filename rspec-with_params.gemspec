@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.8"
   spec.add_development_dependency "jet_black", "~> 0.5"
-  spec.add_development_dependency "rspec_junit_formatter" if ENV.key?("CI")
+  spec.add_development_dependency "rspec_junit_formatter"
 end

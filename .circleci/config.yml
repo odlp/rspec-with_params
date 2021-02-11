@@ -1,73 +1,50 @@
 ---
-version: 2
+version: 2.1
 
-#-------------------------------------------------------------------------------
+orbs:
+  ruby: circleci/ruby@1.1
 
-base_job: &base_job
-  working_directory: ~/repo
-  steps:
-    - checkout
+executors:
+  ruby-docker:
+    parameters:
+      ruby-version:
+        type: string
+    docker:
+      - image: circleci/ruby:<<parameters.ruby-version>>
 
-    - run:
-        name: install bundler
-        command: gem install bundler:2.2
-
-    - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-    - run:
-        name: install dependencies
-        command: bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-    - save_cache:
-        paths:
-          - ./vendor/bundle
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-    - run:
-        name: run tests
-        command: |
-          bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out test-results/rspec.xml
-
-    # collect reports
-    - store_test_results:
-          path: test-results
-
-#-------------------------------------------------------------------------------
+####
 
 jobs:
-  ruby-2.5:
-    <<: *base_job
-    docker:
-      - image: circleci/ruby:2.5
-  ruby-2.6:
-    <<: *base_job
-    docker:
-      - image: circleci/ruby:2.6
-  ruby-2.7:
-    <<: *base_job
-    docker:
-      - image: circleci/ruby:2.7
-    environment:
-      ENABLE_COVERAGE: 1
-  ruby-3.0:
-    <<: *base_job
-    docker:
-      - image: circleci/ruby:3.0
+  test:
+    parameters:
+      ruby-version:
+        type: string
+    executor:
+      name: ruby-docker
+      ruby-version: <<parameters.ruby-version>>
+    steps:
+      - checkout
+      - ruby/install-deps:
+          with-cache: true
+      - run:
+          name: run tests
+          command: |
+            bundle exec rspec --format progress \
+                              --format RspecJunitFormatter \
+                              --out test-results/rspec.xml
+      - when:
+          condition:
+            equal: [ "2.7", << parameters.ruby-version >>]
+          steps:
+            - store_test_results:
+                path: test-results
 
-#-------------------------------------------------------------------------------
+####
 
-# TODO: Refactor
 workflows:
-  version: 2
-  multiple-rubies:
+  all-tests:
     jobs:
-      - ruby-2.5
-      - ruby-2.6
-      - ruby-2.7
-      - ruby-3.0
+      - test:
+          matrix:
+            parameters:
+              ruby-version: ["2.5", "2.6", "2.7", "3.0"]
